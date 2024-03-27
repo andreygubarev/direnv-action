@@ -10,7 +10,7 @@ inputs:
   version:
     description: 'The version of direnv to install'
     required: true
-    default: '2.28.0'
+    default: '2.34.0'
 
 runs:
   using: node20
