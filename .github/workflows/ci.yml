@@ -40,7 +40,26 @@ jobs:
         id: npm-lint
         run: npm run lint
 
-  test-action:
+  test-action-latest:
+    name: GitHub Actions Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Test Local Action
+        id: test-action
+        uses: ./
+        with:
+          version: latest
+
+      - name: Test Presence of `direnv`
+        id: test-direnv
+        run: direnv --version
+
+  test-action-version:
     name: GitHub Actions Test
     runs-on: ubuntu-latest
 
