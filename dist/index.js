@@ -28600,15 +28600,24 @@ exports.run = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 const tc = __importStar(__nccwpck_require__(7784));
 const exec = __importStar(__nccwpck_require__(1514));
+const process_1 = __nccwpck_require__(7282);
 async function run() {
     try {
         const version = core.getInput('version');
-        const cache = tc.find('direnv', version);
+        const architecture = process_1.arch === 'x64' ? 'amd64' : process_1.arch;
+        switch (process_1.platform) {
+            case 'linux':
+            case 'darwin':
+                break;
+            default:
+                throw new Error(`Unsupported platform: ${process_1.platform}`);
+        }
+        const cache = tc.find('direnv', `${version}-${process_1.platform}-${architecture}`);
         if (cache) {
             core.addPath(cache);
             return;
         }
-        const url = `https://github.com/direnv/direnv/releases/download/v${version}/direnv.linux-amd64`;
+        const url = `https://github.com/direnv/direnv/releases/download/v${version}/direnv.${process_1.platform}-${architecture}`;
         // Download the binary
         const downloadPath = await tc.downloadTool(url);
         // Make the binary executable
@@ -28777,6 +28786,14 @@ module.exports = require("path");
 
 "use strict";
 module.exports = require("perf_hooks");
+
+/***/ }),
+
+/***/ 7282:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("process");
 
 /***/ }),
 
@@ -30538,9 +30555,6 @@ var __webpack_exports__ = {};
 var exports = __webpack_exports__;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-/**
- * The entrypoint for the action.
- */
 const main_1 = __nccwpck_require__(399);
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (0, main_1.run)();
