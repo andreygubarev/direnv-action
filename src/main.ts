@@ -3,7 +3,6 @@ import * as tc from '@actions/tool-cache'
 import * as exec from '@actions/exec'
 import { arch, platform } from 'process'
 
-
 export async function run(): Promise<void> {
   try {
     const version: string = core.getInput('version')
