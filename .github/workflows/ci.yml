@@ -55,6 +55,6 @@ jobs:
         with:
           version: 2.34.0
 
-      - name: Print Output
-        id: output
-        run: echo "${{ steps.test-action.outputs.time }}"
+      - name: Test Presence of `direnv`
+        id: test-direnv
+        run: direnv --version
