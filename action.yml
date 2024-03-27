@@ -9,8 +9,8 @@ branding:
 inputs:
   version:
     description: 'The version of direnv to install'
-    required: true
-    default: '2.34.0'
+    required: false
+    default: 'latest'
 
 runs:
   using: node20

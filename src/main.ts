@@ -2,10 +2,19 @@ import * as core from '@actions/core'
 import * as tc from '@actions/tool-cache'
 import * as exec from '@actions/exec'
 import { arch, platform } from 'process'
+import axios from 'axios'
 
 export async function run(): Promise<void> {
   try {
-    const version: string = core.getInput('version')
+    let version: string = core.getInput('version')
+
+    if (!version || version.toLowerCase() === 'latest') {
+      const { data } = await axios.get(
+        'https://api.github.com/repos/direnv/direnv/releases/latest'
+      )
+      version = data.tag_name.slice(1)
+    }
+
     const architecture = arch === 'x64' ? 'amd64' : arch
     switch (platform) {
       case 'linux':
@@ -33,7 +42,7 @@ export async function run(): Promise<void> {
       downloadPath,
       'direnv',
       'direnv',
-      version
+      `${version}-${platform}-${architecture}`
     )
 
     // Add the binary to the PATH
