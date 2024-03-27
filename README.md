@@ -9,7 +9,7 @@ variables without cluttering your shell startup files.
 To use this action in your workflow, add the following step:
 
 ```yaml
-- uses: andreygubarev/direnv-action
+- uses: andreygubarev/direnv-action@v1
 ```
 
 This action supports multiple platforms and architectures, which are
