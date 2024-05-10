@@ -1,4 +1,4 @@
-name: 'andreygubarev/direnv-action'
+name: 'andreygubarev/setup-direnv'
 description: 'Set up direnv'
 author: 'andreygubarev'
 
